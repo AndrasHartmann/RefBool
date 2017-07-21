@@ -30,10 +30,13 @@ parfor g=1:num_genes
    [~,PD] = allfitdist(geneExpressionReference(g,:),sortby);
    FittedDists{g} = PD{1}.DistributionName;
    ProbDists{g} = PD{1};
+   %fprintf(1,'\b.\n'); % \b is backspace
 end
 
 
 alldists = cell(num_genes,1);
+fprintf('Progress:\n');
+fprintf(['\n' repmat('.',1,num_genes) '\n\n']);
 parfor g=1:num_genes
     [dists] = DetermineDistributions(geneExpressionReference(g,:),FittedDists{g},ProbDists{g},bootstrapSamples,precision);
     if ~takeMaxThresholds
@@ -44,6 +47,7 @@ parfor g=1:num_genes
        end
     end
     alldists{g} = dists;
+   fprintf('\b|\n');
 end
 
 end
