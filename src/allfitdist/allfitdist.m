@@ -252,7 +252,8 @@ end
         D(num).ParamCov=[];
         D(num).Support=struct([]);
     catch err
-         display(err);%Ignore distribution
+	    %Since this is not an error, probably it's better not to scare people
+         %display(err);%Ignore distribution
     end
 warning('on','all'); %Turn back on warnings
 if numel(D)==0
