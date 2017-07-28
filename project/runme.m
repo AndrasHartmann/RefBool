@@ -41,5 +41,5 @@ dists = DetermineThresholdDistributions(A, 1000, 0.001, 'AIC', false);
 %toc;
 background_genes = TF_explib(:,1:2);
 
-writetable(background_genes,'background_genes','delimiter', '\t')
+writetable(background_genes,'background_genes','delimiter', '\t', 'WriteVariableNames', false)
 save('dists', 'dists')
