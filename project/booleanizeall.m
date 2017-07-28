@@ -1,3 +1,4 @@
+addpath ../src/
 
 %% Get all files to booleanize
 !ls ~/Work/LCSB_EPI_CBG/Data/Input/*/*EXPRESSION.txt > x.tmp
@@ -6,7 +7,7 @@
 
 
 %%Initialize background
-background_genes = readtable('../ReferenceDistributions/GeneOrderReference_CoTFCRF.txt', ...,
+background_genes = readtable('../ReferenceDistributions/background_genes.txt', ...,
       'delimiter','\t', 'ReadVariableNames',false );
 
 gNames = background_genes.(1);
@@ -43,7 +44,7 @@ while true
 
 
      %vector for expression
-     expression = Expr{indices,2};
+     expression = Expr.TPM(indices);
      Gene_ID = Expr{indices,1};
 
      %p-values
