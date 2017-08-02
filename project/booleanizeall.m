@@ -52,6 +52,9 @@ while true
 
     % booleanizing everything
      bool_value_all = Pvals_inter_low_adj < 0.95;
+     %explicitely set it to 0 whenever the value is 0
+     %TODO: is there a better way to do this?
+     bool_value_all (expression==0) = 0;
 
      %only lower and upper 10%
      bool_value = nan(size(Pvals_inter_low_adj));
