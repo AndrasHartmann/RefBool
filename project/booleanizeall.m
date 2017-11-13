@@ -51,18 +51,24 @@ while true
     [ Pvals_low,Pvals_up,Pvals_inter_low,Pvals_inter_up,Pvals_low_adj,Pvals_up_adj,Pvals_inter_low_adj,Pvals_inter_up_adj ] = CalculatePValues( mydists, expression); 
 
     % booleanizing everything
-     bool_value_all = Pvals_inter_low_adj < 0.95;
+     bool_value_all_low = Pvals_inter_low_adj < 0.95;
+     %explicitely set it to 0 whenever the value is 0
+     %TODO: is there a better way to do this?
+     bool_value_all_low (expression==0) = 0;
+
+      % booleanizing everything
+     bool_value_all = Pvals_inter_up_adj > 0.05;
      %explicitely set it to 0 whenever the value is 0
      %TODO: is there a better way to do this?
      bool_value_all (expression==0) = 0;
-
+     
      %only lower and upper 10%
      bool_value = nan(size(Pvals_inter_low_adj));
 
      bool_value (Pvals_low_adj < 0.1) = 0;
      bool_value (Pvals_up_adj < 0.1) = 1;
      
-     output = table(Gene_ID, expression, bool_value_all, bool_value);
+     output = table(Gene_ID, expression, bool_value_all, bool_value_all_low, bool_value);
      background_genes.Properties.VariableNames = {'Gene_ID', 'HGNC_symbol'};
      output = innerjoin(background_genes,output);
 
